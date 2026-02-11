@@ -178,9 +178,9 @@ Increase log size to:
 
 | Port | Component | Description |
 |------|-----------|-------------|
-| 1514 | Wazuh Manager | Agent communication |
-| 1515 | Wazuh Manager | Agent enrollment |
-| 514 | Wazuh Manager | Syslog ingestion |
+| 1516 | Wazuh Manager | Agent communication |
+| 1517 | Wazuh Manager | Agent enrollment |
+| 516 | Wazuh Manager | Syslog ingestion |
 | 55000 | Wazuh Manager | API |
 | 9250 | Wazuh Indexer | OpenSearch API |
 | 5602 | Wazuh Dashboard | Web interface |
