@@ -13,11 +13,13 @@ Wazuh Stack Deployment on Server
     docker load -i wazuh-certs-generator.tar
 
 
-Windows XP Wazuh Installation Instructions
-1.) wazuh-agent-4.14.2-1.msi /q WAZUH_MANAGER="X.X.X.X"
+Windows XP Wazuh Installation Instructions and File Location "~/Wazuh/wazuh-agent"
+1.) Place wazuh-agent-4.14.2-1.msi onto Windows XP Host
+
+2.) In Command Prompt run, "wazuh-agent-4.14.2-1.msi /q WAZUH_MANAGER="X.X.X.X""
     Once ran, Authentication Key should populate
 
-2.) NET START WazuhSvc
+3.) NET START WazuhSvc
 
 
 XP Problem Points-
@@ -26,3 +28,14 @@ Fix Action:    Run -> secpol.msc -> Local Policies -> Audit Policies -> 
 
 2.) Windows XP Logs have a maximum log size for Application, Security, and System. This is leading to missing logs once these stores fill.
 Fix Action:    Run -> eventvwr.msc -> Application/Security/System -> Properties -> Enable "Overwrite events as needed"
+
+
+External Port Mapping:
+
+Port : Component
+1514 : Wazuh TCP
+1515 : Wazuh TCP
+514 : Wazuh UDP
+55000 : Wazuh server API
+9250 : Wazuh indexer API (Originally mapped to 9200, changed to avoid collision with Elastic)
+5602 : Wazuh dashboard HTTPS
