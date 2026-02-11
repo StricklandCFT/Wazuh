@@ -7,10 +7,10 @@ Wazuh Stack Deployment on Server
 
 2) Start the environment with docker compose from the "~/wazuh-docker/wazuh-image-tars/" folder:
 
-    docker load -i wazuh-manager_4.14.2.tar 
-    docker load -i wazuh-indexer_4.14.2.tar
-    docker load -i wazuh-dashboard_4.14.2.tar
-    docker load -i wazuh-certs-generator.tar
+    - docker load -i wazuh-manager_4.14.2.tar 
+    - docker load -i wazuh-indexer_4.14.2.tar
+    - docker load -i wazuh-dashboard_4.14.2.tar
+    - docker load -i wazuh-certs-generator.tar
 
 
 Windows XP Wazuh Installation Instructions and File Location "~/Wazuh/wazuh-agent"
