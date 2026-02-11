@@ -52,6 +52,13 @@ docker load -i wazuh-dashboard_4.14.2.tar
 docker load -i wazuh-certs-generator.tar
 ```
 
+Docker Compose UP:
+
+```bash
+wazuh-dashboard_4.14.2.tar
+```
+
+
 Verify images:
 
 ```bash
