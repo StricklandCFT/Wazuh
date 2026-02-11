@@ -20,7 +20,6 @@ Windows XP Wazuh Installation Instructions
 2.) NET START WazuhSvc
 
 
-
 XP Problem Points-
 1.) Problem: The XP Machines are not logging all possible log combinations leading to missing data. 
 Fix Action:    Run -> secpol.msc -> Local Policies -> Audit Policies -> (Please enable Success and Failure for all Policies as shown below).
