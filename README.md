@@ -1,41 +1,219 @@
-Wazuh Docker Installation Instructions
+# Wazuh Docker Deployment and Windows XP Agent Installation Guide
 
-Wazuh Stack Deployment on Server
-1) Increase max_map_count on your host (Linux). This command must be run with root permissions:
+This guide documents deployment of the Wazuh stack using Docker in an air-gapped environment and installation of the Wazuh agent on Windows XP hosts.
 
-    sysctl -w vm.max_map_count=262144
+---
 
-2) Start the environment with docker compose from the "~/wazuh-docker/wazuh-image-tars/" folder:
+# Table of Contents
 
-    - docker load -i wazuh-manager_4.14.2.tar 
-    - docker load -i wazuh-indexer_4.14.2.tar
-    - docker load -i wazuh-dashboard_4.14.2.tar
-    - docker load -i wazuh-certs-generator.tar
+- [Host Preparation](#host-preparation)
+- [Wazuh Docker Stack Deployment](#wazuh-docker-stack-deployment)
+- [Windows XP Agent Installation](#windows-xp-agent-installation)
+- [Windows XP Logging Configuration Fixes](#windows-xp-logging-configuration-fixes)
+- [External Port Mapping](#external-port-mapping)
+- [Verification](#verification)
+- [Notes](#notes)
 
+---
 
-Windows XP Wazuh Installation Instructions and File Location "~/Wazuh/wazuh-agent"
-1.) Place wazuh-agent-4.14.2-1.msi onto Windows XP Host
+# Host Preparation
 
-2.) In Command Prompt run, "wazuh-agent-4.14.2-1.msi /q WAZUH_MANAGER="X.X.X.X""
-    Once ran, Authentication Key should populate
+Wazuh indexer (OpenSearch) requires increased virtual memory limits.
 
-3.) NET START WazuhSvc
+Run as root:
 
+```bash
+sysctl -w vm.max_map_count=262144
+```
 
-XP Problem Points-
-1.) Problem: The XP Machines are not logging all possible log combinations leading to missing data. 
-Fix Action:    Run -> secpol.msc -> Local Policies -> Audit Policies -> (Please enable Success and Failure for all Policies as shown below).
+Make persistent:
 
-2.) Windows XP Logs have a maximum log size for Application, Security, and System. This is leading to missing logs once these stores fill.
-Fix Action:    Run -> eventvwr.msc -> Application/Security/System -> Properties -> Enable "Overwrite events as needed"
+```bash
+echo "vm.max_map_count=262144" >> /etc/sysctl.conf
+sysctl -p
+```
 
+---
 
-External Port Mapping:
+# Wazuh Docker Stack Deployment
 
-Port : Component
-1514 : Wazuh TCP
-1515 : Wazuh TCP
-514 : Wazuh UDP
-55000 : Wazuh server API
-9250 : Wazuh indexer API (Originally mapped to 9200, changed to avoid collision with Elastic)
-5602 : Wazuh dashboard HTTPS
+Navigate to image directory:
+
+```bash
+cd ~/wazuh-docker/wazuh-image-tars/
+```
+
+Load Docker images:
+
+```bash
+docker load -i wazuh-manager_4.14.2.tar
+docker load -i wazuh-indexer_4.14.2.tar
+docker load -i wazuh-dashboard_4.14.2.tar
+docker load -i wazuh-certs-generator.tar
+```
+
+Verify images:
+
+```bash
+docker images | grep wazuh
+```
+
+Start stack:
+
+```bash
+docker compose up -d
+```
+
+Verify containers:
+
+```bash
+docker ps
+```
+
+---
+
+# Windows XP Agent Installation
+
+## File Location
+
+```
+~/Wazuh/wazuh-agent/
+```
+
+Required file:
+
+```
+wazuh-agent-4.14.2-1.msi
+```
+
+---
+
+## Silent Installation
+
+Run in Command Prompt:
+
+```cmd
+wazuh-agent-4.14.2-1.msi /q WAZUH_MANAGER="X.X.X.X"
+```
+
+Replace `X.X.X.X` with your Wazuh Manager IP.
+
+---
+
+## Start Agent Service
+
+```cmd
+NET START WazuhSvc
+```
+
+Verify:
+
+```cmd
+sc query WazuhSvc
+```
+
+Expected output:
+
+```
+STATE: RUNNING
+```
+
+---
+
+# Windows XP Logging Configuration Fixes
+
+## Enable Full Audit Logging
+
+Open:
+
+```
+Start → Run → secpol.msc
+```
+
+Navigate to:
+
+```
+Local Policies → Audit Policy
+```
+
+Enable **Success and Failure** for all categories.
+
+---
+
+## Fix Event Log Size Limitation
+
+Open:
+
+```
+Start → Run → eventvwr.msc
+```
+
+For each log:
+
+- Application
+- Security
+- System
+
+Do:
+
+Right click → Properties
+
+Enable:
+
+```
+Overwrite events as needed
+```
+
+Recommended:
+
+Increase log size to:
+
+```
+262144 KB
+```
+
+---
+
+# External Port Mapping
+
+| Port | Component | Description |
+|------|-----------|-------------|
+| 1514 | Wazuh Manager | Agent communication |
+| 1515 | Wazuh Manager | Agent enrollment |
+| 514 | Wazuh Manager | Syslog ingestion |
+| 55000 | Wazuh Manager | API |
+| 9250 | Wazuh Indexer | OpenSearch API |
+| 5602 | Wazuh Dashboard | Web interface |
+
+Dashboard access:
+
+```
+https://SERVER-IP:5602
+```
+
+---
+
+# Verification
+
+List agents:
+
+```bash
+docker exec -it wazuh-manager /var/ossec/bin/agent_control -l
+```
+
+Check indices:
+
+```bash
+curl -k -u admin:password https://localhost:9250/_cat/indices?v
+```
+
+---
+
+# Notes
+
+• Designed for air-gapped deployment  
+• No internet required  
+• Docker images loaded manually  
+• Windows XP requires manual audit policy configuration  
+
+---
