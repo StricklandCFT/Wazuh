@@ -73,7 +73,35 @@ Verify containers:
 docker ps
 ```
 
----
+# Wazuh Docker Stack Deployment
+
+Run the following command to enter the container:
+
+```bash
+docker exec -it <wazuh-manager-container-id> /bin/bash
+```
+
+Edit /etc/filebeat/filebeat.yml and change the archives: setting from false to true:
+
+archives:
+  enabled: true
+
+```bash
+sed -i '/archives:/!b;n;s/enabled: false/enabled: true/' /etc/filebeat/filebeat.yml
+```
+
+Run the following command to check if the modification was applied correctly:
+
+
+```bash
+cat /etc/filebeat/filebeat.yml
+```
+
+Exit the container and restart the Wazuh Manager:
+
+```bash
+docker restart <wazuh-manager-container-id>
+```
 
 # Windows XP Agent Installation
 
