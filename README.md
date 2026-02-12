@@ -100,10 +100,10 @@ wazuh-agent-4.14.2-1.msi
 Run in Command Prompt:
 
 ```cmd
-wazuh-agent-4.14.2-1.msi /q WAZUH_MANAGER="X.X.X.X"
+wazuh-agent-4.14.2-1.msi /q WAZUH_MANAGER="X.X.X.X" WAZUH_MANAGER_PORT="1516" WAZUH_REGISTRATION_PORT="1517"
 ```
 
-Replace `X.X.X.X` with your Wazuh Manager IP.
+Replace `X.X.X.X` with your Wazuh Manager IP. Ascertain Ports with chart below.
 
 ---
 
