@@ -35,7 +35,7 @@ sysctl -p
 
 ---
 
-# Wazuh Docker Stack Deployment
+# Wazuh Docker Archives Log Enablement
 
 Navigate to image directory:
 
@@ -72,6 +72,18 @@ Verify containers:
 ```bash
 docker ps
 ```
+
+From the Wazuh GUI:
+```
+Dashboards Management -> Index Patterns -> Create Index Pattern
+```
+```
+Name = wazuh-archives-*
+```
+```
+Time Field = @timestamp
+```
+Save
 
 # Wazuh Docker Stack Deployment
 
