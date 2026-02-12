@@ -71,7 +71,7 @@ docker ps
 Run the following command to enter the container:
 
 ```bash
-docker exec -it <wazuh-manager-container-id> /bin/bash
+docker exec -it wazuh/wazuh-manager:4.14.2 /bin/bash
 ```
 
 Edit /etc/filebeat/filebeat.yml and change the archives: setting from false to true:
@@ -93,8 +93,9 @@ cat /etc/filebeat/filebeat.yml
 Exit the container and restart the Wazuh Manager:
 
 ```bash
-docker restart <wazuh-manager-container-id>
+docker restart wazuh/wazuh-manager:4.14.2
 ```
+
 
 From the Wazuh GUI:
 ```
@@ -107,7 +108,7 @@ Name = wazuh-archives-*
 Time Field = @timestamp
 ```
 Save
-```
+
 
 # Windows XP Agent Installation
 
