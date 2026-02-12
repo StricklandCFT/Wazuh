@@ -26,13 +26,6 @@ Run as root:
 sysctl -w vm.max_map_count=262144
 ```
 
-Make persistent:
-
-```bash
-echo "vm.max_map_count=262144" >> /etc/sysctl.conf
-sysctl -p
-```
-
 ---
 
 # Wazuh Docker Archives Log Enablement
