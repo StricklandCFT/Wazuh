@@ -66,7 +66,6 @@ Verify containers:
 docker ps
 ```
 
-```
 # Wazuh Docker Archives Log Enablement
 
 Run the following command to enter the container:
