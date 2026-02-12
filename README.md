@@ -115,10 +115,10 @@ Save
 ## File Location
 
 ```
-~/Wazuh/wazuh-agent/
+INSERT FILE LOCATION
 ```
 
-Required file:
+Required file on XP Host:
 
 ```
 wazuh-agent-4.14.2-1.msi
