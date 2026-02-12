@@ -93,7 +93,7 @@ cat /etc/filebeat/filebeat.yml
 Exit the container and restart the Wazuh Manager:
 
 ```bash
-docker restart wazuh/wazuh-manager:4.14.2
+docker restart single-node-wazuh.manager-1
 ```
 
 
