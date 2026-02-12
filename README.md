@@ -71,7 +71,7 @@ docker ps
 Run the following command to enter the container:
 
 ```bash
-docker exec -it wazuh/wazuh-manager:4.14.2 /bin/bash
+docker exec -it single-node-wazuh.manager-1 /bin/bash
 ```
 
 Edit /etc/filebeat/filebeat.yml and change the archives: setting from false to true:
