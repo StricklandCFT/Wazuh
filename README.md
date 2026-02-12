@@ -28,7 +28,7 @@ sysctl -w vm.max_map_count=262144
 
 ---
 
-# Wazuh Docker Archives Log Enablement
+# Wazuh Docker Stack Deployment
 
 Navigate to image directory:
 
@@ -66,19 +66,8 @@ Verify containers:
 docker ps
 ```
 
-From the Wazuh GUI:
 ```
-Dashboards Management -> Index Patterns -> Create Index Pattern
-```
-```
-Name = wazuh-archives-*
-```
-```
-Time Field = @timestamp
-```
-Save
-
-# Wazuh Docker Stack Deployment
+# Wazuh Docker Archives Log Enablement
 
 Run the following command to enter the container:
 
@@ -106,6 +95,19 @@ Exit the container and restart the Wazuh Manager:
 
 ```bash
 docker restart <wazuh-manager-container-id>
+```
+
+From the Wazuh GUI:
+```
+Dashboards Management -> Index Patterns -> Create Index Pattern
+```
+```
+Name = wazuh-archives-*
+```
+```
+Time Field = @timestamp
+```
+Save
 ```
 
 # Windows XP Agent Installation
