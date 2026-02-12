@@ -108,6 +108,7 @@ Replace `X.X.X.X` with your Wazuh Manager IP. Ascertain Ports with chart below.
 ```cmd
 NET START WazuhSvc
 ```
+NOTE: This may take multiple attempts to start the service.
 
 Verify:
 
