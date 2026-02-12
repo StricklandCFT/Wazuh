@@ -61,6 +61,9 @@ docker images | grep wazuh
 Start stack:
 
 ```bash
+cd ~/docker-wazuh/single-node/
+```
+```bash
 docker compose up -d
 ```
 
