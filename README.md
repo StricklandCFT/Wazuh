@@ -247,7 +247,21 @@ curl -k -u admin:password https://localhost:9250/_cat/indices?v
 ```
 
 ---
+# Restarting Expirement
 
+Acquire token:
+
+```bash
+TOKEN=$(curl -u admin:SecretPassword -k -X POST "https://<WAZUH_MANAGER_IP>:55000/security/user/authenticate?raw=true")
+```
+
+Delete ALL agents:
+
+```bash
+curl -k -X DELETE "https://<WAZUH_MANAGER_IP>:55000/agents?pretty=true&older_than=0s&agents_list=all&status=all" -H "Authorization: Bearer $TOKEN"
+```
+
+---
 # Notes
 
 • Designed for air-gapped deployment  
