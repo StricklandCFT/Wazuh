@@ -247,7 +247,7 @@ curl -k -u admin:password https://localhost:9250/_cat/indices?v
 ```
 
 ---
-# Restarting Expirement
+# Restarting Experiment
 
 Acquire token:
 
