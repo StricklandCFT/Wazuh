@@ -249,6 +249,9 @@ curl -k -u admin:password https://localhost:9250/_cat/indices?v
 ---
 # Restarting Experiment
 
+Wazuh will not enroll Agents with an Active/Disconnected/Pending agent previously enrolled with the same host. The agent list in the Wazuh Manager must be  cleared otherwise agent enrollment will fail. This should be ran before each experiment restart.
+
+
 Acquire token:
 
 ```bash
